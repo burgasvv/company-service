@@ -1,0 +1,12 @@
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: company_springboot_postgres
+    ports:
+      - "6000:5432"
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: company_springboot_db
+      PGDATA: /var/lib/data/postgresql

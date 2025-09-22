@@ -1,0 +1,112 @@
+
+
+
+### Security Requests
+
+
+
+###
+GET /api/v1/security/csrf-token
+Host: localhost:9000
+Accept: application/json
+
+
+
+### Company Requests
+
+
+
+###
+GET /api/v1/companies
+Host: localhost:9000
+Accept: application/json
+
+###
+GET /api/v1/companies/by-id?companyId=48e3110c-2ed8-4774-80a2-8bbffdd93681
+Host: localhost:9000
+Accept: application/json
+
+###
+POST /api/v1/companies/create-update
+Host: localhost:9000
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "TV Set Corporation",
+    "description": "Описание компании TV Set Corporation"
+}
+
+###
+POST /api/v1/companies/create-update
+Host: localhost:9000
+Accept: application/json
+Content-Type: application/json
+
+{
+    "id": "7be8254d-9db5-4e75-90f1-6f6fa886d529",
+    "name": "TV Set",
+    "description": "Описание компании TV Set"
+}
+
+###
+DELETE /api/v1/companies/delete?companyId=7be8254d-9db5-4e75-90f1-6f6fa886d529
+Host: localhost:9000
+Accept: application/json
+
+
+
+### Identity Requests
+
+
+###
+GET /api/v1/identities
+Host: localhost:9000
+Accept: application/json
+Authorization: Basic director@gmail.com director
+
+###
+GET /api/v1/identities/by-id?identityId=f70c249a-d2c3-4b52-8c5e-b53cd3e9ae6d
+Host: localhost:9000
+Accept: application/json
+Authorization: Basic director@gmail.com director
+
+###
+GET /api/v1/identities
+Host: localhost:9000
+Accept: application/json
+
+###
+POST /api/v1/identities/create
+Host: localhost:9000
+Accept: application/json
+Content-Type: application/json
+X-Csrf-Token: hqVeBTJ3vxIvtc0VsnpzFtMrqC1AprbLUkF6hsQWeTT79xjPtpc_PFYRincC0f4h11dHc-cdhRR1woHmMydJ5PEuGFfJziv_
+
+{
+    "authority": "DIRECTOR",
+    "username": "director@gmail.com",
+    "password": "director",
+    "phone": "+7(956)-769-42-95",
+    "firstname": "Бушуев",
+    "lastname": "Виктор",
+    "patronymic": "Валерьевич",
+    "about": "Биография Бушуева В.В.",
+    "companyId": "48e3110c-2ed8-4774-80a2-8bbffdd93681"
+}
+
+###
+PUT /api/v1/identities/update
+Host: localhost:9000
+Accept: application/json
+Content-Type: application/json
+
+{
+    "id": "64b49b71-38ec-442e-97b1-857b8616ad31",
+    "username": "director@gmail.com",
+    "password": "director",
+    "firstname": "Бушуев",
+    "lastname": "Аркадий",
+    "patronymic": "Валерьевич",
+    "about": "Биография Бушуева А.В."
+}
