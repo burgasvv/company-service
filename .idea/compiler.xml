@@ -8,7 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
       </profile>
-      <profile name="Annotation profile for company-service" enabled="true">
+      <profile name="Annotation profile for proxy-server" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -16,6 +16,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.5.6/spring-boot-configuration-processor-3.5.6.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.40/lombok-1.18.40.jar" />
         </processorPath>
+        <module name="proxy-server" />
         <module name="company-springboot" />
       </profile>
     </annotationProcessing>
@@ -23,6 +24,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="company-springboot" options="-parameters" />
+      <module name="proxy-server" options="-parameters" />
     </option>
   </component>
 </project>
