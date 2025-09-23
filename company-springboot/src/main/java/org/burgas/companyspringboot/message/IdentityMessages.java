@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum IdentityMessages {
 
+    IDENTITY_NOT_AUTHORIZED("Identity not authorized"),
+    IDENTITY_NOT_AUTHENTICATED("Identity not authenticated"),
     AUTHORITY_FIELD_EMPTY("Authority field is empty"),
     USERNAME_FIELD_EMPTY("Username field is empty"),
     PASSWORD_FIELD_EMPTY("Password field is empty"),

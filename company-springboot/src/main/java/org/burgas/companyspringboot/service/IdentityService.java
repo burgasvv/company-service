@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.burgas.companyspringboot.dto.identity.IdentityFullResponse;
 import org.burgas.companyspringboot.dto.identity.IdentityRequest;
 import org.burgas.companyspringboot.dto.identity.IdentityShortResponse;
+import org.burgas.companyspringboot.entity.company.Company;
 import org.burgas.companyspringboot.entity.identity.Identity;
 import org.burgas.companyspringboot.exception.IdentityNotFoundException;
 import org.burgas.companyspringboot.mapper.IdentityMapper;
 import org.burgas.companyspringboot.message.IdentityMessages;
 import org.burgas.companyspringboot.repository.IdentityRepository;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,6 +26,11 @@ public class IdentityService implements CrudService<UUID, IdentityRequest, Ident
 
     private final IdentityRepository identityRepository;
     private final IdentityMapper identityMapper;
+    private final ObjectFactory<CompanyService> companyServiceObjectFactory;
+
+    public CompanyService getCompanyService() {
+        return this.companyServiceObjectFactory.getObject();
+    }
 
     @Override
     public Identity findEntity(UUID id) {
@@ -56,5 +63,12 @@ public class IdentityService implements CrudService<UUID, IdentityRequest, Ident
     public void delete(UUID uuid) {
         Identity identity = this.findEntity(uuid);
         this.identityRepository.delete(identity);
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public void addCompany(final UUID companyId, final UUID identityId) {
+        Identity identity = this.findEntity(identityId);
+        Company company = this.getCompanyService().findEntity(companyId);
+        identity.setCompany(company);
     }
 }

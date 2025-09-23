@@ -2,6 +2,7 @@ package org.burgas.companyspringboot.router;
 
 import lombok.RequiredArgsConstructor;
 import org.burgas.companyspringboot.dto.identity.IdentityRequest;
+import org.burgas.companyspringboot.filter.IdentityFilterFunction;
 import org.burgas.companyspringboot.service.IdentityService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +19,12 @@ import java.util.UUID;
 public class IdentityRouter {
 
     private final IdentityService identityService;
+    private final IdentityFilterFunction identityFilterFunction;
 
     @Bean
     public RouterFunction<ServerResponse> identityRoutes() {
         return RouterFunctions.route()
+                .filter(this.identityFilterFunction)
                 .GET(
                         "/api/v1/identities", request -> ServerResponse
                                 .status(HttpStatus.OK)
@@ -49,7 +52,9 @@ public class IdentityRouter {
                 )
                 .PUT(
                         "/api/v1/identities/update", request -> {
-                            UUID identityId = this.identityService.createOrUpdate(request.body(IdentityRequest.class));
+                            UUID identityId = this.identityService.createOrUpdate(
+                                    (IdentityRequest) request.attribute("identityRequest").orElseThrow()
+                            );
                             return ServerResponse
                                     .status(HttpStatus.OK)
                                     .contentType(MediaType.APPLICATION_JSON)
@@ -59,6 +64,15 @@ public class IdentityRouter {
                 .DELETE(
                         "/api/v1/identities/delete", request -> {
                             this.identityService.delete(UUID.fromString(request.param("identityId").orElseThrow()));
+                            return ServerResponse.noContent().build();
+                        }
+                )
+                .PUT(
+                        "/api/v1/identities/add-company", request -> {
+                            this.identityService.addCompany(
+                                    UUID.fromString(request.param("companyId").orElseThrow()),
+                                    UUID.fromString(request.param("identityId").orElseThrow())
+                            );
                             return ServerResponse.noContent().build();
                         }
                 )

@@ -83,10 +83,7 @@ public final class IdentityMapper implements EntityMapper<IdentityRequest, Ident
                             String patronymic = this.handleDataThrowable(identityRequest.getPatronymic(), PATRONYMIC_FIELD_EMPTY.getMessage());
                             String about = this.handleDataThrowable(identityRequest.getAbout(), ABOUT_FIELD_EMPTY.getMessage());
                             UUID companyId = this.handleData(identityRequest.getCompanyId(), UUID.nameUUIDFromBytes(new byte[]{}));
-                            Company company = this.handleDataThrowable(
-                                    this.getCompanyRepository().findById(companyId).orElse(null),
-                                    COMPANY_FIELD_EMPTY.getMessage()
-                            );
+                            Company company = this.getCompanyRepository().findById(companyId).orElse(null);
                             return Identity.builder()
                                     .authority(authority)
                                     .username(username)

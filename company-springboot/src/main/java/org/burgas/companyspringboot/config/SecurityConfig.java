@@ -56,7 +56,7 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/v1/companies/create-update", "/api/v1/companies/delete",
 
-                                        "/api/v1/identities", "/api/v1/identities/by-id",
+                                        "/api/v1/identities", "/api/v1/identities/by-id", "/api/v1/identities/add-company",
                                         "/api/v1/identities/update", "/api/v1/identities/delete"
                                 )
                                 .hasAnyAuthority(DIRECTOR.getAuthority(), EMPLOYEE.getAuthority())

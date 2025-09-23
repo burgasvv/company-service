@@ -12,5 +12,6 @@
 
     <modules>
         <module>company-springboot</module>
+        <module>proxy-server</module>
     </modules>
 </project>

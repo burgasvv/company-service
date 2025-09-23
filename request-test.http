@@ -81,7 +81,7 @@ POST /api/v1/identities/create
 Host: localhost:8765
 Accept: application/json
 Content-Type: application/json
-X-Csrf-Token: hqVeBTJ3vxIvtc0VsnpzFtMrqC1AprbLUkF6hsQWeTT79xjPtpc_PFYRincC0f4h11dHc-cdhRR1woHmMydJ5PEuGFfJziv_
+X-Csrf-Token: fCfC1b6M23ey91vufqXhrfI0QaoDE6UWEh4txkDXp-jcOCoCTkPx5Iy8v0OfkW_dSIjVlcBXbJNhcpU7dy8Yo3S2k47qXRxk
 
 {
     "authority": "DIRECTOR",
@@ -91,8 +91,7 @@ X-Csrf-Token: hqVeBTJ3vxIvtc0VsnpzFtMrqC1AprbLUkF6hsQWeTT79xjPtpc_PFYRincC0f4h11
     "firstname": "Бушуев",
     "lastname": "Виктор",
     "patronymic": "Валерьевич",
-    "about": "Биография Бушуева В.В.",
-    "companyId": "48e3110c-2ed8-4774-80a2-8bbffdd93681"
+    "about": "Биография Бушуева В.В."
 }
 
 ###
@@ -100,13 +99,20 @@ PUT /api/v1/identities/update
 Host: localhost:8765
 Accept: application/json
 Content-Type: application/json
+Authorization: Basic director@gmail.com director
+X-Csrf-Token: RSJQMT0-6POI_cC__Oiemnhn2uLHNWZJR4rVxDPs2uLhGN8dIxNjCQlcisely_iJzsWq_khX99ulAwVkf73j8QeIudCHeu94
 
 {
-    "id": "64b49b71-38ec-442e-97b1-857b8616ad31",
-    "username": "director@gmail.com",
-    "password": "director",
-    "firstname": "Бушуев",
-    "lastname": "Аркадий",
-    "patronymic": "Валерьевич",
-    "about": "Биография Бушуева А.В."
+    "id": "43aeaf10-3e2d-406e-bb78-2f3f9d7c3e4d",
+    "firstname": "Валуев",
+    "lastname": "Арсений",
+    "patronymic": "Викторович",
+    "about": "Биография Валуева А.В."
 }
+
+###
+PUT /api/v1/identities/add-company?companyId=75d0df53-eca7-4aa1-b253-9c51769ca946&identityId=43aeaf10-3e2d-406e-bb78-2f3f9d7c3e4d
+Host: localhost:8765
+Accept: application/json
+Authorization: Basic director@gmail.com director
+X-Csrf-Token: ez8edWrQXvay7P5LQlXA18UNSFwrf_ICbchfH9q3ldNXuElIGgZ_F1y2PZef35oucHj04_JvZWRJSMovCK47feOPoLFv2it6
