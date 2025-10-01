@@ -3,10 +3,13 @@ package org.burgas.companyspringboot.entity.identity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.burgas.companyspringboot.entity.BaseEntity;
+import org.burgas.companyspringboot.entity.chat.Chat;
 import org.burgas.companyspringboot.entity.company.Company;
+import org.burgas.companyspringboot.entity.wallet.Wallet;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +24,9 @@ import java.util.UUID;
 @NamedEntityGraph(
         name = "identity-entity-graph",
         attributeNodes = {
-                @NamedAttributeNode(value = "company")
+                @NamedAttributeNode(value = "company"),
+                @NamedAttributeNode(value = "chats"),
+                @NamedAttributeNode(value = "wallets")
         }
 )
 public final class Identity extends BaseEntity implements UserDetails {
@@ -62,6 +67,24 @@ public final class Identity extends BaseEntity implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     private Company company;
+
+    @Builder.Default
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "identity_chat",
+            joinColumns = @JoinColumn(name = "identity_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "id")
+    )
+    private List<Chat> chats = new ArrayList<>();
+
+    public void addChat(final Chat chat) {
+        this.chats.add(chat);
+        chat.getIdentities().add(this);
+    }
+
+    @Builder.Default
+    @OneToMany(mappedBy = "identity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Wallet> wallets = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

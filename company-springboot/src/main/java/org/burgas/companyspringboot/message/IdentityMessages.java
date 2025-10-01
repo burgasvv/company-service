@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum IdentityMessages {
 
+    IDENTITY_NOT_IN_CHAT("Identity not in chat"),
+    MATCHES_PASSWORD("Matched identity passwords: new and old"),
+    EMPTY_PASSWORD("Identity password is empty"),
     IDENTITY_NOT_AUTHORIZED("Identity not authorized"),
     IDENTITY_NOT_AUTHENTICATED("Identity not authenticated"),
     AUTHORITY_FIELD_EMPTY("Authority field is empty"),

@@ -45,7 +45,8 @@ public final class CompanyMapper implements EntityMapper<CompanyRequest, Company
                 .orElseGet(
                         () -> {
                             String name = this.handleDataThrowable(companyRequest.getName(), NAME_FIELD_EMPTY.getMessage());
-                            String description = this.handleDataThrowable(companyRequest.getDescription(), DESCRIPTION_FIELD_EMPTY.getMessage());
+                            String description = this.handleDataThrowable(companyRequest.getDescription(),
+                                    DESCRIPTION_FIELD_EMPTY.getMessage());
                             return Company.builder()
                                     .name(name)
                                     .description(description)
@@ -70,7 +71,7 @@ public final class CompanyMapper implements EntityMapper<CompanyRequest, Company
                 .name(company.getName())
                 .description(company.getDescription())
                 .identities(
-                        company.getIdentities() == null ? null : company.getIdentities()
+                        company.getIdentities()
                                 .stream()
                                 .map(identity -> this.getIdentityMapper().toShortResponse(identity))
                                 .toList()

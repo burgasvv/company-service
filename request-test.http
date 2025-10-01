@@ -22,7 +22,7 @@ Host: localhost:8765
 Accept: application/json
 
 ###
-GET /api/v1/companies/by-id?companyId=48e3110c-2ed8-4774-80a2-8bbffdd93681
+GET /api/v1/companies/by-id?companyId=a05d466a-0370-4ddb-a4fa-cdb0c924276f
 Host: localhost:8765
 Accept: application/json
 
@@ -66,7 +66,7 @@ Accept: application/json
 Authorization: Basic director@gmail.com director
 
 ###
-GET /api/v1/identities/by-id?identityId=f70c249a-d2c3-4b52-8c5e-b53cd3e9ae6d
+GET /api/v1/identities/by-id?identityId=313b47fe-452c-4288-b310-34d757105677
 Host: localhost:8765
 Accept: application/json
 Authorization: Basic director@gmail.com director
@@ -81,7 +81,7 @@ POST /api/v1/identities/create
 Host: localhost:8765
 Accept: application/json
 Content-Type: application/json
-X-Csrf-Token: fCfC1b6M23ey91vufqXhrfI0QaoDE6UWEh4txkDXp-jcOCoCTkPx5Iy8v0OfkW_dSIjVlcBXbJNhcpU7dy8Yo3S2k47qXRxk
+X-Csrf-Token: 3urHFYIp9giRlpBsXqqsegd2wdS4iTfG0YqhOxLpVqljbEhnu9OlcbQfwTi8palVZoeYS2JE7LaL6ATrs7uUAiaPZ81WWHsF
 
 {
     "authority": "DIRECTOR",
@@ -111,8 +111,127 @@ X-Csrf-Token: RSJQMT0-6POI_cC__Oiemnhn2uLHNWZJR4rVxDPs2uLhGN8dIxNjCQlcisely_iJzs
 }
 
 ###
-PUT /api/v1/identities/add-company?companyId=75d0df53-eca7-4aa1-b253-9c51769ca946&identityId=43aeaf10-3e2d-406e-bb78-2f3f9d7c3e4d
+PUT /api/v1/identities/add-company?companyId=a05d466a-0370-4ddb-a4fa-cdb0c924276f&identityId=313b47fe-452c-4288-b310-34d757105677
 Host: localhost:8765
 Accept: application/json
 Authorization: Basic director@gmail.com director
-X-Csrf-Token: ez8edWrQXvay7P5LQlXA18UNSFwrf_ICbchfH9q3ldNXuElIGgZ_F1y2PZef35oucHj04_JvZWRJSMovCK47feOPoLFv2it6
+X-Csrf-Token: 0JX15Lf_Akh4VAGuItD5bYabDiOba4JJIxy_XI0OgOLV-r5MtayXgIHJNXhVZziXGv3NXOOpI0GoCrFkQS2KZblosYbgzo0u
+
+###
+PUT /api/v1/identities/change-password?identityId=43aeaf10-3e2d-406e-bb78-2f3f9d7c3e4d&newPassword=director
+Host: localhost:8765
+Accept: application/json
+Authorization: Basic director@gmail.com director111
+X-Csrf-Token: y6rtvypr1c080lXrTWlWJeVpZ_iBUa_IA3tmRGox1072Egn7-czVjBlTs6wRsGPdeURiEoBeSpniaJblZ0oHcwwA4nnAJmua
+
+###
+PUT /api/v1/identities/add-chat?identityId=313b47fe-452c-4288-b310-34d757105677&chatId=7a7dd07e-3d43-4aea-98d1-7e97e3f7ff6f
+Host: localhost:8765
+Accept: application/json
+Authorization: Basic director@gmail.com director
+X-Csrf-Token: Li6lzpXc41rdVu25VPn-JltWbQVzGj4NsTImv-gnwDmQ0-3JSxfHqqPq1GrwZdSAbNTKFz5kQGdAew0g0wMThtxB8V2l596r
+
+
+
+### Chat Requests
+
+
+
+###
+GET /api/v1/chats/by-id?chatId=7a7dd07e-3d43-4aea-98d1-7e97e3f7ff6f
+Host: localhost:8765
+Accept: application/json
+Authorization: Basic director@gmail.com director
+
+###
+POST /api/v1/chats/create-update
+Host: localhost:8765
+Accept: application/json
+Content-Type: application/json
+Authorization: Basic director@gmail.com director
+X-Csrf-Token: rbnaggw5PYGIwHHum1P0E4akW1TvxxzFFYaVRXZMmw4pvctZyIC45joPCrGl80jXo37AIuOWdjbcpi_od7egfEIqqmocifg7
+
+{
+    "name": "New Content Chat",
+    "description": "Описание нового Content чата"
+}
+
+
+
+### Message Requests
+
+
+
+###
+GET /api/v1/messages/by-chat?chatId=7a7dd07e-3d43-4aea-98d1-7e97e3f7ff6f
+Host: localhost:8765
+Accept: application/json
+Authorization: Basic director@gmail.com director
+
+###
+GET /api/v1/messages/by-id?messageId=2837444e-e498-4f4b-8c67-cf558da680f9
+Host: localhost:8765
+Accept: application/json
+Authorization: Basic director@gmail.com director
+
+###
+POST /api/v1/messages/create-update
+Host: localhost:8765
+Accept: application/json
+Content-Type: application/json
+Authorization: Basic director@gmail.com director
+X-Csrf-Token: IrI8ZU0CF4ntD2YOeWchHQ1Q5v10AfYp81s4zWGjNdAwZiCiRtAOBihncurAPV84HUoVeDU0y5xAMJMEwjkN_1PGBbRUUxbD
+
+{
+    "content": "Second message as content for chat",
+    "senderId": "313b47fe-452c-4288-b310-34d757105677",
+    "chatId": "7a7dd07e-3d43-4aea-98d1-7e97e3f7ff6f"
+}
+
+
+
+### Wallet Requests
+
+
+
+###
+GET /api/v1/wallets/by-id?walletId=cdce5668-fe6e-4725-98e1-4789ff5a2a98
+Host: localhost:8765
+Accept: application/json
+Authorization: Basic director@gmail.com director
+
+###
+POST /api/v1/wallets/create-update
+Host: localhost:8765
+Accept: application/json
+Content-Type: application/json
+Authorization: Basic director@gmail.com director
+X-Csrf-Token: WS78w5d8pR4NkQylfmEZsRZgHp5AHW_LNvDKBD8uBnsycJiebxefpfIdw3sgozWWS0wthiRZM_8iKVrmUJOpZwwfMB5URPqo
+
+{
+    "identityId": "313b47fe-452c-4288-b310-34d757105677"
+}
+
+###
+PUT /api/v1/wallets/deposit?walletId=f235b5ff-cc7f-42e3-a038-877a37798089&amount=2500.0
+Host: localhost:8765
+Accept: application/json
+Authorization: Basic director@gmail.com director
+X-Csrf-Token: MpcCRaoaeaG0VQbJr5fui8pj0L6OGXVVp13qaoJAYNbpuZntBK5hI897H8SZZz_6mrravPha_d_sLUB4wT6JCbFxVrOPjfvb
+
+###
+PUT /api/v1/wallets/withdraw?walletId=f235b5ff-cc7f-42e3-a038-877a37798089&amount=500.0
+Host: localhost:8765
+Accept: application/json
+Authorization: Basic director@gmail.com director
+X-Csrf-Token: MpcCRaoaeaG0VQbJr5fui8pj0L6OGXVVp13qaoJAYNbpuZntBK5hI897H8SZZz_6mrravPha_d_sLUB4wT6JCbFxVrOPjfvb
+
+###
+PUT /api/v1/wallets/transfer?
+    senderWalletId=cdce5668-fe6e-4725-98e1-4789ff5a2a98&
+    receiverWalletId=f235b5ff-cc7f-42e3-a038-877a37798089&
+    amount=1000.0
+Host: localhost:8765
+Accept: application/json
+Authorization: Basic director@gmail.com director
+X-Csrf-Token: S6TxJWCq7i4y09nBZmmEwcjPzQeI_n53pZXXT9KS28CLlBIvfZ2SQwXLiEsf4eDyU0Sw9vr24Gbqyktaw_a0LOGj7aXtoHAZ

@@ -4,13 +4,17 @@ import lombok.RequiredArgsConstructor;
 import org.burgas.companyspringboot.dto.identity.IdentityFullResponse;
 import org.burgas.companyspringboot.dto.identity.IdentityRequest;
 import org.burgas.companyspringboot.dto.identity.IdentityShortResponse;
+import org.burgas.companyspringboot.entity.chat.Chat;
 import org.burgas.companyspringboot.entity.company.Company;
 import org.burgas.companyspringboot.entity.identity.Identity;
+import org.burgas.companyspringboot.exception.EmptyPasswordException;
 import org.burgas.companyspringboot.exception.IdentityNotFoundException;
+import org.burgas.companyspringboot.exception.MatchesPasswordException;
 import org.burgas.companyspringboot.mapper.IdentityMapper;
 import org.burgas.companyspringboot.message.IdentityMessages;
 import org.burgas.companyspringboot.repository.IdentityRepository;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -27,9 +31,15 @@ public class IdentityService implements CrudService<UUID, IdentityRequest, Ident
     private final IdentityRepository identityRepository;
     private final IdentityMapper identityMapper;
     private final ObjectFactory<CompanyService> companyServiceObjectFactory;
+    private final PasswordEncoder passwordEncoder;
+    private final ObjectFactory<ChatService> chatServiceObjectFactory;
 
     public CompanyService getCompanyService() {
         return this.companyServiceObjectFactory.getObject();
+    }
+
+    public ChatService getChatService() {
+        return this.chatServiceObjectFactory.getObject();
     }
 
     @Override
@@ -70,5 +80,27 @@ public class IdentityService implements CrudService<UUID, IdentityRequest, Ident
         Identity identity = this.findEntity(identityId);
         Company company = this.getCompanyService().findEntity(companyId);
         identity.setCompany(company);
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public void changePassword(final UUID identityId, final String newPassword) {
+        if (newPassword != null && !newPassword.isBlank()) {
+            Identity identity = this.findEntity(identityId);
+
+            if (this.passwordEncoder.matches(newPassword, identity.getPassword()))
+                throw new MatchesPasswordException(IdentityMessages.MATCHES_PASSWORD.getMessage());
+
+            identity.setPassword(this.passwordEncoder.encode(newPassword));
+
+        } else {
+            throw new EmptyPasswordException(IdentityMessages.EMPTY_PASSWORD.getMessage());
+        }
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public void addChat(final UUID identityId, final UUID chatId) {
+        Identity identity = this.findEntity(identityId);
+        Chat chat = this.getChatService().findEntity(chatId);
+        identity.addChat(chat);
     }
 }

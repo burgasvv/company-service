@@ -3,6 +3,11 @@
   <component name="DataSourcePerFileMappings">
     <file url="file://$PROJECT_DIR$/company-springboot/src/main/resources/db/changelog/create/01-create-company.sql" value="3e06e601-755d-4ad7-a197-7a9608237cbe" />
     <file url="file://$PROJECT_DIR$/company-springboot/src/main/resources/db/changelog/create/02-create-identity.sql" value="3e06e601-755d-4ad7-a197-7a9608237cbe" />
+    <file url="file://$PROJECT_DIR$/company-springboot/src/main/resources/db/changelog/create/03-create-chat.sql" value="3e06e601-755d-4ad7-a197-7a9608237cbe" />
+    <file url="file://$PROJECT_DIR$/company-springboot/src/main/resources/db/changelog/create/04-create-identity-chat.sql" value="3e06e601-755d-4ad7-a197-7a9608237cbe" />
+    <file url="file://$PROJECT_DIR$/company-springboot/src/main/resources/db/changelog/create/05-create-message.sql" value="3e06e601-755d-4ad7-a197-7a9608237cbe" />
+    <file url="file://$PROJECT_DIR$/company-springboot/src/main/resources/db/changelog/create/06-create-wallet.sql" value="3e06e601-755d-4ad7-a197-7a9608237cbe" />
+    <file url="file://$PROJECT_DIR$/company-springboot/src/main/resources/db/changelog/create/07-create-operation.sql" value="3e06e601-755d-4ad7-a197-7a9608237cbe" />
     <file url="file://$PROJECT_DIR$/company-springboot/src/main/resources/db/changelog/populate/01-insert-company.sql" value="3e06e601-755d-4ad7-a197-7a9608237cbe" />
   </component>
 </project>

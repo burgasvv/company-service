@@ -76,6 +76,24 @@ public class IdentityRouter {
                             return ServerResponse.noContent().build();
                         }
                 )
+                .PUT(
+                        "/api/v1/identities/change-password", request -> {
+                            this.identityService.changePassword(
+                                    UUID.fromString(request.param("identityId").orElseThrow()),
+                                    request.param("newPassword").orElseThrow()
+                            );
+                            return ServerResponse.noContent().build();
+                        }
+                )
+                .PUT(
+                        "/api/v1/identities/add-chat", request -> {
+                            this.identityService.addChat(
+                                    UUID.fromString(request.param("identityId").orElseThrow()),
+                                    UUID.fromString(request.param("chatId").orElseThrow())
+                            );
+                            return ServerResponse.noContent().build();
+                        }
+                )
                 .build();
     }
 }

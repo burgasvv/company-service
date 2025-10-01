@@ -25,6 +25,8 @@ public final class IdentityMapper implements EntityMapper<IdentityRequest, Ident
     private final IdentityRepository identityRepository;
     private final ObjectFactory<CompanyRepository> companyRepositoryObjectFactory;
     private final ObjectFactory<CompanyMapper> companyMapperObjectFactory;
+    private final ObjectFactory<ChatMapper> chatMapperObjectFactory;
+    private final ObjectFactory<WalletMapper> walletMapperObjectFactory;
     private final PasswordEncoder passwordEncoder;
 
     private CompanyRepository getCompanyRepository() {
@@ -33,6 +35,14 @@ public final class IdentityMapper implements EntityMapper<IdentityRequest, Ident
 
     private CompanyMapper getCompanyMapper() {
         return this.companyMapperObjectFactory.getObject();
+    }
+
+    private ChatMapper getChatMapper() {
+        return this.chatMapperObjectFactory.getObject();
+    }
+
+    private WalletMapper getWalletMapper() {
+        return this.walletMapperObjectFactory.getObject();
     }
 
     @Override
@@ -75,15 +85,22 @@ public final class IdentityMapper implements EntityMapper<IdentityRequest, Ident
                         () -> {
                             Authority authority = this.handleDataThrowable(identityRequest.getAuthority(),
                                     AUTHORITY_FIELD_EMPTY.getMessage());
-                            String username = this.handleDataThrowable(identityRequest.getUsername(), USERNAME_FIELD_EMPTY.getMessage());
-                            String password = this.handleDataThrowable(identityRequest.getPassword(), PASSWORD_FIELD_EMPTY.getMessage());
-                            String phone = this.handleDataThrowable(identityRequest.getPhone(), PHONE_FIELD_EMPTY.getMessage());
-                            String firstname = this.handleDataThrowable(identityRequest.getFirstname(), FIRSTNAME_FIELD_EMPTY.getMessage());
-                            String lastname = this.handleDataThrowable(identityRequest.getLastname(), LASTNAME_FIELD_EMPTY.getMessage());
-                            String patronymic = this.handleDataThrowable(identityRequest.getPatronymic(), PATRONYMIC_FIELD_EMPTY.getMessage());
+                            String username = this.handleDataThrowable(identityRequest.getUsername(),
+                                    USERNAME_FIELD_EMPTY.getMessage());
+                            String password = this.handleDataThrowable(identityRequest.getPassword(),
+                                    PASSWORD_FIELD_EMPTY.getMessage());
+                            String phone = this.handleDataThrowable(identityRequest.getPhone(),
+                                    PHONE_FIELD_EMPTY.getMessage());
+                            String firstname = this.handleDataThrowable(identityRequest.getFirstname(),
+                                    FIRSTNAME_FIELD_EMPTY.getMessage());
+                            String lastname = this.handleDataThrowable(identityRequest.getLastname(),
+                                    LASTNAME_FIELD_EMPTY.getMessage());
+                            String patronymic = this.handleDataThrowable(identityRequest.getPatronymic(),
+                                    PATRONYMIC_FIELD_EMPTY.getMessage());
                             String about = this.handleDataThrowable(identityRequest.getAbout(), ABOUT_FIELD_EMPTY.getMessage());
                             UUID companyId = this.handleData(identityRequest.getCompanyId(), UUID.nameUUIDFromBytes(new byte[]{}));
                             Company company = this.getCompanyRepository().findById(companyId).orElse(null);
+
                             return Identity.builder()
                                     .authority(authority)
                                     .username(username)
@@ -133,6 +150,18 @@ public final class IdentityMapper implements EntityMapper<IdentityRequest, Ident
                         Optional.ofNullable(identity.getCompany())
                                 .map(company -> this.getCompanyMapper().toShortResponse(company))
                                 .orElse(null)
+                )
+                .chats(
+                        identity.getChats()
+                                .stream()
+                                .map(chat -> this.getChatMapper().toShortResponse(chat))
+                                .toList()
+                )
+                .wallets(
+                        identity.getWallets()
+                                .stream()
+                                .map(wallet -> this.getWalletMapper().toShortResponse(wallet))
+                                .toList()
                 )
                 .build();
     }
