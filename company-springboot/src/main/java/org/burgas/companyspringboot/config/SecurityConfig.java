@@ -65,7 +65,9 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.csrfTokenRequestHandler(this.xorCsrfTokenRequestAttributeHandler()))
                 .cors(cors -> cors.configurationSource(this.corsConfigurationSource()))
-                .httpBasic(httpBasic -> httpBasic.securityContextRepository(this.httpSessionSecurityContextRepository()))
+                .httpBasic(httpBasic -> httpBasic.securityContextRepository(
+                        this.httpSessionSecurityContextRepository())
+                )
                 .authenticationManager(this.authenticationManager())
                 .authorizeHttpRequests(
                         requests -> requests
