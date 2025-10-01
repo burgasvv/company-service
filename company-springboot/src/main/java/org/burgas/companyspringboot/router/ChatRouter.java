@@ -2,6 +2,7 @@ package org.burgas.companyspringboot.router;
 
 import lombok.RequiredArgsConstructor;
 import org.burgas.companyspringboot.dto.chat.ChatRequest;
+import org.burgas.companyspringboot.filter.ChatFilterFunction;
 import org.burgas.companyspringboot.service.ChatService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +20,12 @@ import java.util.UUID;
 public class ChatRouter {
 
     private final ChatService chatService;
+    private final ChatFilterFunction chatFilterFunction;
 
     @Bean
     public RouterFunction<ServerResponse> chatRoutes() {
         return RouterFunctions.route()
+                .filter(this.chatFilterFunction)
                 .GET(
                         "/api/v1/chats/by-identity", request -> ServerResponse
                                 .status(HttpStatus.OK)
