@@ -73,6 +73,11 @@ public class SecurityConfig {
                         requests -> requests
 
                                 .requestMatchers(
+                                        "/api/v1/websocket"
+                                )
+                                .permitAll()
+
+                                .requestMatchers(
                                         "/api/v1/security/csrf-token",
 
                                         "/api/v1/companies", "/api/v1/companies/by-id",
