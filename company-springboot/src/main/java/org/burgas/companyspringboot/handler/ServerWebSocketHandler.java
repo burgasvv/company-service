@@ -1,4 +1,4 @@
-package org.burgas.companyspringboot.config;
+package org.burgas.companyspringboot.handler;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
