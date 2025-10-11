@@ -14,7 +14,7 @@ public class ProxyConfig {
                 .route(
                         "company-springboot", predicateSpec -> predicateSpec
                                 .path("/api/v1/**")
-                                .uri("http://localhost:9000")
+                                .uri("http://company-springboot:9000")
                 )
                 .build();
     }
